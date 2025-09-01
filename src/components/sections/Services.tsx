@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
+  
   const services = [
     {
       title: "Exterior Protection",
@@ -79,8 +82,11 @@ const Services = () => {
                   </li>
                 ))}
               </ul>
-              <button className="w-full mt-6 bg-yellow-500 hover:bg-yellow-600 text-black py-2 px-4 rounded-lg transition-colors duration-300 font-semibold">
-                Learn More
+              <button 
+                onClick={() => navigate('/booking')}
+                className="w-full mt-6 bg-yellow-500 hover:bg-yellow-600 text-black py-2 px-4 rounded-lg transition-colors duration-300 font-semibold"
+              >
+                Book Now
               </button>
             </motion.div>
           ))}
@@ -99,8 +105,11 @@ const Services = () => {
           <p className="text-gray-600 mb-6">
             We can create a personalized service package that fits your specific needs and budget
           </p>
-          <button className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-            Request Custom Quote
+          <button 
+            onClick={() => navigate('/booking')}
+            className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+          >
+            Book Service Now
           </button>
         </motion.div>
       </div>
