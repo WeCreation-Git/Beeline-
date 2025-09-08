@@ -24,6 +24,7 @@ function App() {
     return <Loader />;
   }
 
+
   return (
     <Router>
       <div className="min-h-screen">
