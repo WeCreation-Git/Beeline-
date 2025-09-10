@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -10,24 +10,65 @@ const ContactSection = () => {
     service: ''
   });
 
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
   const services = [
-    'Exterior Protection',
-    'Interior Treatment', 
-    'Appearance',
-    'Anti Rust Protection',
-    'Engine Care'
+    "Exterior Protection",
+    "Interior Treatment",
+    "Appearance",
+    "Anti Rust Protection",
+    "Engine Care",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
+    setLoading(true);
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch(
+        "YOUR_DEPLOYED_APPSCRIPT_URL", // Replace with your deployed Google Apps Script URL
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: ["inboxofvigneshwaran@gmail.com", "wecreationsdigital@gmail.com"],
+            subject: "New Contact Form Submission",
+            html: `
+              <h2>New Contact Request</h2>
+              <p><strong>Name:</strong> ${formData.name}</p>
+              <p><strong>Contact:</strong> ${formData.contact}</p>
+              <p><strong>Service Requested:</strong> ${formData.service}</p>
+            `,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setSuccessMessage("Contact form submitted successfully!");
+        setFormData({ name: "", contact: "", service: "" }); // reset form
+      } else {
+        setSuccessMessage("Failed to submit. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -72,7 +113,7 @@ const ContactSection = () => {
                   placeholder="Your full name"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Contact Number *
@@ -137,13 +178,20 @@ const ContactSection = () => {
                   ))}
                 </select>
               </div>
-              
+
               <button
                 type="submit"
-                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-lg font-semibold transition-colors duration-300"
+                disabled={loading}
+                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 px-6 rounded-lg font-semibold transition-colors duration-300 disabled:opacity-50"
               >
-                Submit Request
+                {loading ? "Submitting..." : "Submit Request"}
               </button>
+
+              {successMessage && (
+                <p className="mt-4 text-center text-green-600 font-semibold">
+                  {successMessage}
+                </p>
+              )}
             </form>
           </motion.div>
 
@@ -155,13 +203,13 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="h-96 lg:h-full"
           >
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2118.4567282302323!2d77.3364499889363!3d11.060848670236526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9a94e9af59eb7%3A0x3b1470275451c032!2sBeeline%20Auto%20Hub!5e1!3m2!1sen!2sin!4v1756730376079!5m2!1sen!2sin" 
-              width="100%" 
-              height="100%" 
-              style={{border:0}} 
-              allowFullScreen 
-              loading="lazy" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2118.4567282302323!2d77.3364499889363!3d11.060848670236526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9a94e9af59eb7%3A0x3b1470275451c032!2sBeeline%20Auto%20Hub!5e1!3m2!1sen!2sin!4v1756730376079!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="rounded-lg"
             />
