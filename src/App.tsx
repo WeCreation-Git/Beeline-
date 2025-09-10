@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Carousel from './components/sections/Carousel';
 import WhyUs from './components/sections/WhyUs';
 import Services from './components/sections/Services';
+import InstagramReels from './components/sections/InstagramReels';
 import Reviews from './components/sections/Reviews';
 import ContactSection from './components/sections/ContactSection';
 import Footer from './components/layout/Footer';
@@ -39,6 +40,7 @@ function App() {
                 <section id="services">
                   <Services />
                 </section>
+                <InstagramReels />
                 <Reviews />
                 <ContactSection />
               </main>
