@@ -51,7 +51,7 @@ const ContactSection = () => {
 
       if (result.status === "success") {
         setSuccessMessage("Contact form submitted successfully!");
-        setFormData({ name: "", contact: "", service: "" }); // reset form
+        setFormData({ name: "", contact: "", email: "", location: "", service: "" }); // reset form
       } else {
         setSuccessMessage("Failed to submit. Please try again later.");
       }

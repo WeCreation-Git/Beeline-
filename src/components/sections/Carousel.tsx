@@ -96,7 +96,7 @@ const Carousel = () => {
       </div>
 
       {/* Navigation Arrows */}
-      <button
+      {/* <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-yellow-400 p-3 rounded-full transition-all duration-300 border border-yellow-400"
       >
@@ -111,7 +111,7 @@ const Carousel = () => {
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
-      </button>
+      </button> */}
 
       {/* Dots Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
