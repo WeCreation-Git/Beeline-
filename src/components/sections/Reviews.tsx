@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Reviews = () => {
+  const navigate = useNavigate();
   const reviews = [
     {
       name: "John Smith",
@@ -136,7 +138,10 @@ const Reviews = () => {
             <p className="text-lg mb-6">
               Experience the quality service that has earned us hundreds of 5-star reviews
             </p>
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors duration-300">
+            <button 
+              onClick={() => navigate('/booking')}
+              className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors duration-300"
+            >
               Book Your Service
             </button>
           </div>

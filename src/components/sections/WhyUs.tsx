@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const WhyUs = () => {
+  const navigate = useNavigate();
   const features = [
     {
       icon: "🏆",
@@ -76,7 +78,10 @@ const WhyUs = () => {
             <p className="text-lg mb-6">
               Join thousands of satisfied customers who trust us with their vehicles
             </p>
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors duration-300">
+            <button 
+              onClick={() => navigate('/booking')}
+              className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors duration-300"
+            >
               Get Started Today
             </button>
           </div>
