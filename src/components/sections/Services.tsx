@@ -8,31 +8,26 @@ const Services = () => {
     {
       title: "Exterior Protection",
       description: "Complete exterior detailing with wax, polish, and ceramic coating options",
-      icon: "🚗",
       features: ["Paint Correction", "Ceramic Coating", "Wax & Polish", "Headlight Restoration"]
     },
     {
       title: "Interior Treatment",
       description: "Deep cleaning and protection for all interior surfaces and materials",
-      icon: "🪑",
       features: ["Deep Vacuum", "Leather Treatment", "Fabric Protection", "Dashboard Care"]
     },
     {
       title: "Appearance",
       description: "Complete aesthetic enhancement to make your car look showroom ready",
-      icon: "✨",
       features: ["Full Detail", "Paint Enhancement", "Chrome Polish", "Tire Shine"]
     },
     {
       title: "Anti Rust Protection",
       description: "Advanced rust prevention and treatment to protect your investment",
-      icon: "🛡️",
       features: ["Undercoating", "Rust Treatment", "Protective Coating", "Inspection"]
     },
     {
       title: "Engine Care",
       description: "Professional engine cleaning and maintenance for optimal performance",
-      icon: "⚙️",
       features: ["Engine Degreasing", "Component Cleaning", "Protective Coating", "Inspection"]
     }
   ];
@@ -63,16 +58,15 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full"
             >
-              <div className="text-4xl mb-4 text-center">{service.icon}</div>
               <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
                 {service.title}
               </h3>
               <p className="text-gray-600 mb-4 text-center text-sm">
                 {service.description}
               </p>
-              <ul className="space-y-2">
+              <ul className="space-y-2 flex-grow">
                 {service.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center text-sm text-gray-700">
                     <svg className="w-4 h-4 text-yellow-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
