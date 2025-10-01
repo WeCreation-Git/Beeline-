@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { sendEmail } from '../../utils/emailService';
 
 interface BookingData {
   personalInfo: {
@@ -70,8 +71,28 @@ const BookingPage = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Booking submitted:', bookingData);
-    // Here you would typically send data to backend
+    sendEmail({
+      to: ["beelineautohub@gmail.com"],
+      subject: "New Booking Request",
+      html: `
+        <h2>New Service Booking</h2>
+        <h3>Personal Information</h3>
+        <p><strong>Name:</strong> ${bookingData.personalInfo.name}</p>
+        <p><strong>Email:</strong> ${bookingData.personalInfo.email}</p>
+        <p><strong>Phone:</strong> ${bookingData.personalInfo.phone}</p>
+        <p><strong>Address:</strong> ${bookingData.personalInfo.address}</p>
+        
+        <h3>Vehicle Information</h3>
+        <p><strong>Vehicle:</strong> ${bookingData.vehicleInfo.year} ${bookingData.vehicleInfo.make} ${bookingData.vehicleInfo.model}</p>
+        <p><strong>Color:</strong> ${bookingData.vehicleInfo.color}</p>
+        
+        <h3>Service Details</h3>
+        <p><strong>Services:</strong> ${bookingData.serviceInfo.selectedServices.map(id => services.find(s => s.id === id)?.name).join(', ')}</p>
+        <p><strong>Preferred Date:</strong> ${bookingData.serviceInfo.preferredDate}</p>
+        <p><strong>Preferred Time:</strong> ${bookingData.serviceInfo.preferredTime}</p>
+        <p><strong>Additional Notes:</strong> ${bookingData.serviceInfo.additionalNotes}</p>
+      `,
+    });
     alert('Booking submitted successfully! We will contact you soon.');
   };
 

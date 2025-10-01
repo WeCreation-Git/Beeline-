@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { sendEmail } from "../../utils/emailService";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -21,46 +22,26 @@ const ContactSection = () => {
     "Engine Care",
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setSuccessMessage("");
-
-    try {
-      const response = await fetch(
-        "YOUR_DEPLOYED_APPSCRIPT_URL", // Replace with your deployed Google Apps Script URL
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            to: ["inboxofvigneshwaran@gmail.com", "wecreationsdigital@gmail.com"],
-            subject: "New Contact Form Submission",
-            html: `
-              <h2>New Contact Request</h2>
-              <p><strong>Name:</strong> ${formData.name}</p>
-              <p><strong>Contact:</strong> ${formData.contact}</p>
-              <p><strong>Service Requested:</strong> ${formData.service}</p>
-            `,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        setSuccessMessage("Contact form submitted successfully!");
-        setFormData({ name: "", contact: "", email: "", location: "", service: "" }); // reset form
-      } else {
-        setSuccessMessage("Failed to submit. Please try again later.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setSuccessMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    
+    sendEmail({
+      to: ["arvindh214@gmail.com"],
+      subject: "New Contact Form Submission",
+      html: `
+        <h2>New Contact Request</h2>
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>Contact:</strong> ${formData.contact}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Location:</strong> ${formData.location}</p>
+        <p><strong>Service Requested:</strong> ${formData.service}</p>
+      `,
+    });
+    
+    setSuccessMessage("Contact form submitted successfully!");
+    setFormData({ name: "", contact: "", email: "", location: "", service: "" });
+    setLoading(false);
   };
 
   const handleChange = (
